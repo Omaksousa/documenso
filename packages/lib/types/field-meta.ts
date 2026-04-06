@@ -160,7 +160,10 @@ export const ZSignatureFieldMeta = ZBaseFieldMeta.extend({
 
 export const ZEstampFieldMeta = ZBaseFieldMeta.extend({
   type: z.literal('estamp'),
-  fromPlaceholder: z.string(),
+  receivedFrom: z.string(),
+  stampedAt: z.string().optional(),
+  envelopeExternalId: z.string().optional(),
+  envelopeItems: z.number().optional(),
 });
 
 export type TEstampFieldMeta = z.infer<typeof ZEstampFieldMeta>;
@@ -367,7 +370,7 @@ export const FIELD_DROPDOWN_META_DEFAULT_VALUES: TDropdownFieldMeta = {
 
 export const FIELD_ESTAMP_META_DEFAULT_VALUES: TEstampFieldMeta = {
   type: 'estamp',
-  fromPlaceholder: '0',
+  receivedFrom: '0',
 };
 
 export const FIELD_SIGNATURE_META_DEFAULT_VALUES: TSignatureFieldMeta = {

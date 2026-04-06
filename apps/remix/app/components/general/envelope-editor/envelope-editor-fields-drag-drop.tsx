@@ -34,6 +34,10 @@ const MIN_WIDTH_PX = 36;
 const DEFAULT_HEIGHT_PX = MIN_HEIGHT_PX * 2.5;
 const DEFAULT_WIDTH_PX = MIN_WIDTH_PX * 2.5;
 
+const FIELD_TYPE_DEFAULT_BOUNDS: Partial<Record<FieldType, { width: number; height: number }>> = {
+  [FieldType.ESTAMP]: { width: 210, height: 136 },
+};
+
 export const fieldButtonList = [
   {
     type: FieldType.SIGNATURE,
@@ -139,6 +143,8 @@ export const EnvelopeEditorFieldDragDrop = ({
     width: 0,
   });
 
+  const selectedFieldRef = useRef<FieldType | null>(null);
+
   const onMouseMove = useCallback(
     (event: MouseEvent) => {
       setIsFieldWithinBounds(
@@ -231,10 +237,11 @@ export const EnvelopeEditorFieldDragDrop = ({
         return;
       }
 
-      fieldBounds.current = {
-        height: Math.max(DEFAULT_HEIGHT_PX),
-        width: Math.max(DEFAULT_WIDTH_PX),
-      };
+      const customBounds = selectedFieldRef.current
+        ? FIELD_TYPE_DEFAULT_BOUNDS[selectedFieldRef.current]
+        : undefined;
+
+      fieldBounds.current = customBounds ?? { height: DEFAULT_HEIGHT_PX, width: DEFAULT_WIDTH_PX };
     });
 
     observer.observe(document.body, {
@@ -246,6 +253,15 @@ export const EnvelopeEditorFieldDragDrop = ({
       observer.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    selectedFieldRef.current = selectedField;
+
+    if (selectedField) {
+      const customBounds = FIELD_TYPE_DEFAULT_BOUNDS[selectedField];
+      fieldBounds.current = customBounds ?? { width: DEFAULT_WIDTH_PX, height: DEFAULT_HEIGHT_PX };
+    }
+  }, [selectedField]);
 
   useEffect(() => {
     if (selectedField) {

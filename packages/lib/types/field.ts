@@ -9,6 +9,7 @@ import {
   ZDateFieldMeta,
   ZDropdownFieldMeta,
   ZEmailFieldMeta,
+  ZEstampFieldMeta,
   ZInitialsFieldMeta,
   ZNameFieldMeta,
   ZNumberFieldMeta,
@@ -186,6 +187,13 @@ export const ZFieldDropdownSchema = BaseFieldSchemaUsingNumbers.extend({
 
 export type TFieldDropdown = z.infer<typeof ZFieldDropdownSchema>;
 
+export const ZFieldEstampSchema = BaseFieldSchemaUsingNumbers.extend({
+  type: z.literal(FieldType.ESTAMP),
+  fieldMeta: ZEstampFieldMeta,
+});
+
+export type TFieldEstamp = z.infer<typeof ZFieldEstampSchema>;
+
 /**
  * The full field schema which will enforce all types and meta fields.
  */
@@ -200,6 +208,7 @@ export const ZFullFieldSchema = z.discriminatedUnion('type', [
   ZFieldRadioSchema,
   ZFieldCheckboxSchema,
   ZFieldDropdownSchema,
+  ZFieldEstampSchema,
 ]);
 
 export type TFullFieldSchema = z.infer<typeof ZFullFieldSchema>;

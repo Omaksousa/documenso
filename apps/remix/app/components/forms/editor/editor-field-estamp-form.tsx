@@ -17,7 +17,7 @@ import {
 import { Input } from '@documenso/ui/primitives/input';
 
 const ZEstampFieldMetaSchema = ZEstampFieldMeta.pick({
-  fromPlaceholder: true,
+  receivedFrom: true,
   readOnly: true,
 }).refine(
   (data) => {
@@ -40,7 +40,7 @@ type EditorFieldEstampFormProps = {
 export const EditorFieldEstampForm = ({
   value = {
     type: 'estamp',
-    fromPlaceholder: '0',
+    receivedFrom: '0',
   },
   onValueChange,
 }: EditorFieldEstampFormProps) => {
@@ -50,7 +50,7 @@ export const EditorFieldEstampForm = ({
     resolver: zodResolver(ZEstampFieldMetaSchema),
     mode: 'onChange',
     defaultValues: {
-      fromPlaceholder: value.fromPlaceholder || '0',
+      receivedFrom: value.receivedFrom || '0',
       readOnly: value.readOnly || false,
     },
   });
@@ -65,8 +65,8 @@ export const EditorFieldEstampForm = ({
   useEffect(() => {
     const validatedFormValues = ZEstampFieldMetaSchema.safeParse(formValues);
 
-    if (formValues.readOnly && !formValues.fromPlaceholder) {
-      void form.trigger('fromPlaceholder');
+    if (formValues.readOnly && !formValues.receivedFrom) {
+      void form.trigger('receivedFrom');
     }
 
     if (validatedFormValues.success) {
@@ -83,11 +83,11 @@ export const EditorFieldEstampForm = ({
         <fieldset className="flex flex-col gap-2">
           <FormField
             control={form.control}
-            name="fromPlaceholder"
+            name="receivedFrom"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  <Trans>From Placeholder</Trans>
+                  <Trans>Received From</Trans>
                 </FormLabel>
                 <FormControl>
                   <Input data-testid="field-form-label" placeholder={t`Field From`} {...field} />

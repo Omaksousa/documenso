@@ -5,6 +5,7 @@ import { isBase64Image } from '@documenso/lib/constants/signatures';
 import { AppError, AppErrorCode } from '@documenso/lib/errors/app-error';
 import { validateFieldAuth } from '@documenso/lib/server-only/document/validate-field-auth';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '@documenso/lib/types/document-audit-logs';
+import { ZEstampFieldMeta } from '@documenso/lib/types/field-meta';
 import { createDocumentAuditLogData } from '@documenso/lib/utils/document-audit-logs';
 import { extractFieldInsertionValues } from '@documenso/lib/utils/envelope-signing';
 import { prisma } from '@documenso/prisma';
@@ -62,6 +63,7 @@ export const signEnvelopeFieldRoute = procedure
           include: {
             recipients: true,
             documentMeta: true,
+            envelopeItems: true,
           },
         },
         recipient: true,
@@ -218,6 +220,29 @@ export const signEnvelopeFieldRoute = procedure
         },
       });
 
+      if (field.type === FieldType.ESTAMP) {
+        const parsedEstampMeta = ZEstampFieldMeta.parse(field.fieldMeta);
+
+        const updatedEstampField = await tx.field.update({
+          where: {
+            id: field.id,
+          },
+          data: {
+            fieldMeta: {
+              ...parsedEstampMeta,
+              stampedAt: new Date().toISOString(),
+              envelopeExternalId: envelope.externalId || undefined,
+              envelopeItems: envelope.envelopeItems.length,
+            },
+          },
+          include: {
+            signature: true,
+          },
+        });
+
+        Object.assign(updatedField, updatedEstampField);
+      }
+
       if (field.type === FieldType.SIGNATURE) {
         const signature = await tx.signature.upsert({
           where: {
@@ -270,6 +295,7 @@ export const signEnvelopeFieldRoute = procedure
                 FieldType.NAME,
                 FieldType.TEXT,
                 FieldType.INITIALS,
+                FieldType.ESTAMP,
                 (type) => ({
                   type,
                   data: updatedField.customText,
