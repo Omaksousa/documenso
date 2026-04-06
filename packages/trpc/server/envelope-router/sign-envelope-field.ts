@@ -231,7 +231,7 @@ export const signEnvelopeFieldRoute = procedure
             fieldMeta: {
               ...parsedEstampMeta,
               stampedAt: new Date().toISOString(),
-              envelopeExternalId: envelope.externalId || undefined,
+              envelopeExternalId: envelope.secondaryId || undefined,
               envelopeItems: envelope.envelopeItems.length,
             },
           },

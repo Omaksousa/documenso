@@ -1,3 +1,4 @@
+import JsBarcode from 'jsbarcode';
 import Konva from 'konva';
 
 import sharakatLogo from '@documenso/assets/static/sharakat-logo.png';
@@ -12,8 +13,9 @@ import type { FieldToRender, RenderFieldElementOptions } from './field-renderer'
 const STAMP_WIDTH = 210;
 const HEADER_HEIGHT = 48;
 const ROW_HEIGHT = 22;
+const BARCODE_ROW_HEIGHT = 24;
 const NUM_ROWS = 4; // رقم, التاريخ, وارد من, المرفقات
-const STAMP_HEIGHT = HEADER_HEIGHT + ROW_HEIGHT * NUM_ROWS;
+const STAMP_HEIGHT = HEADER_HEIGHT + ROW_HEIGHT * NUM_ROWS + BARCODE_ROW_HEIGHT;
 
 const BORDER_COLOR = '#1B3A6B';
 const TEXT_COLOR = '#1B3A6B';
@@ -125,6 +127,7 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
     const h = w / aspect;
     logoKonva.width(w);
     logoKonva.height(h);
+    logoKonva.y((HEADER_HEIGHT - h) / 2);
     estampGroup.getLayer()?.batchDraw();
   };
 
@@ -199,6 +202,41 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
   rowY += ROW_HEIGHT;
 
   addRow(estampGroup, 'المرفقات :', numberOfDocuments, rowY);
+  rowY += ROW_HEIGHT;
+
+  // ── BARCODE ROW ──────────────────────────────────────────────────────────
+  if (externalId) {
+    const barcodeCanvas = document.createElement('canvas');
+    try {
+      JsBarcode(barcodeCanvas, externalId, {
+        format: 'CODE128',
+        width: 1,
+        height: BARCODE_ROW_HEIGHT - 6,
+        displayValue: false,
+        margin: 0,
+      });
+
+      const barcodeImg = new window.Image();
+      barcodeImg.src = barcodeCanvas.toDataURL('image/png');
+
+      const barcodeWidth = STAMP_WIDTH * 0.5;
+      const barcodeKonva = new Konva.Image({
+        image: barcodeImg,
+        x: (STAMP_WIDTH - barcodeWidth) / 2,
+        y: rowY + 3,
+        width: barcodeWidth,
+        height: BARCODE_ROW_HEIGHT - 6,
+      });
+
+      barcodeImg.onload = () => {
+        estampGroup.getLayer()?.batchDraw();
+      };
+
+      estampGroup.add(barcodeKonva);
+    } catch {
+      // If barcode generation fails (e.g. invalid chars), skip it
+    }
+  }
 
   return estampGroup;
 };
