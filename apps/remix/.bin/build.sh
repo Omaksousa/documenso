@@ -25,8 +25,8 @@ npm run build:app
 echo "[Build]: Building server"
 npm run build:server
 
-# Copy over the entry point for the server.
-cp server/main.js build/server/main.js
+# Copy over the server API entry point.
+cp server/main-client.js build/server/main-client.js
 
 # Copy over all web.js translations
 cp -r ../../packages/lib/translations build/server/hono/packages/lib/translations

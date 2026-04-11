@@ -1,0 +1,75 @@
+# Pre-requisites: Make sure you have the '.env' file in the same directory as this compose file.
+# Build: docker compose -f docker/production/v2.compose.yml build --no-cache
+# Run: docker compose -f docker/production/v2.compose.yml up
+name: documenso
+
+services:
+  migrate:
+    build:
+      context: ../..
+      dockerfile: apps/remix/Dockerfile.api
+    env_file:
+      - .env
+    environment:
+      - NEXT_PRIVATE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      - NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+    working_dir: /app
+    command: npx prisma migrate deploy --schema=/app/packages/prisma/schema.prisma
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: 'no'
+
+  api:
+    build:
+      context: ../..
+      dockerfile: apps/remix/Dockerfile.api
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - SERVER_PORT=3001
+      - NEXT_PRIVATE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      - NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+    ports:
+      - '3001:3001'
+    depends_on:
+      database:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  client:
+    build:
+      context: ../..
+      dockerfile: apps/remix/Dockerfile.client
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - SERVER_URL=http://api:3001
+      - NEXT_PRIVATE_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+      - NEXT_PRIVATE_DIRECT_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+
+  database:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - database:/var/lib/postgresql/data
+    ports:
+      - '54320:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  database:

@@ -1,0 +1,56 @@
+# Build context: repository root
+# Usage: docker build -f apps/remix/Dockerfile.client -t documenso-client .
+
+# ─── Base ────────────────────────────────────────────────────────────────────
+FROM node:22-alpine AS base
+WORKDIR /app
+
+# ─── Install all dependencies (dev + prod needed for build) ──────────────────
+FROM base AS deps
+COPY . .
+RUN --mount=type=cache,target=/root/.npm npm install
+
+# ─── Build the React Router SSR client server ────────────────────────────────
+FROM base AS builder
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+
+# Compile i18n translations before bundling (matches build.sh)
+RUN npm run translate:compile
+
+# Generate Prisma client types (must run before Vite build)
+WORKDIR /app
+RUN npx prisma generate --schema=packages/prisma/schema.prisma
+
+# Build React Router client app via Vite
+WORKDIR /app/apps/remix
+RUN npm run build:app
+
+# Copy main-client.js into the build output so it sits next to index.js
+# (matches build.sh — main-client.js imports ./index.js via relative path)
+RUN cp server/main-client.js build/server/main-client.js
+
+# Remove dev dependencies in place to keep the runner image lean
+WORKDIR /app
+RUN npm prune --omit=dev
+
+# ─── Production image ────────────────────────────────────────────────────────
+FROM node:22-alpine AS runner
+
+# WORKDIR must be the parent of build/client/ because main-client.js
+# serves static files using: serveStatic({ root: 'build/client' })
+# which resolves relative to the current working directory.
+WORKDIR /app
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages ./packages
+COPY --from=builder /app/apps/remix/build/client ./build/client
+COPY --from=builder /app/apps/remix/build/server ./build/server
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV SERVER_URL=http://localhost:3001
+
+EXPOSE 3000
+
+CMD ["node", "build/server/main-client.js"]
