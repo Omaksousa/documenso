@@ -20,7 +20,7 @@ import { getBoundingClientRect } from '@documenso/lib/client-only/get-bounding-c
 import { useDocumentElement } from '@documenso/lib/client-only/hooks/use-document-element';
 import { useCurrentEnvelopeEditor } from '@documenso/lib/client-only/providers/envelope-editor-provider';
 import { PDF_VIEWER_PAGE_SELECTOR } from '@documenso/lib/constants/pdf-viewer';
-import { FIELD_META_DEFAULT_VALUES } from '@documenso/lib/types/field-meta';
+import { FIELD_META_DEFAULT_VALUES, type TFieldMetaSchema } from '@documenso/lib/types/field-meta';
 import { nanoid } from '@documenso/lib/universal/id';
 import { canRecipientFieldsBeModified } from '@documenso/lib/utils/recipients';
 import { SignatureIcon } from '@documenso/ui/icons/signature';
@@ -91,9 +91,18 @@ export const fieldButtonList = [
     name: msg`Dropdown`,
   },
   {
+    id: 'estamp_arabic',
     type: FieldType.ESTAMP,
     icon: StampIcon,
-    name: msg`Stamp`,
+    name: msg`Stamp (Arabic)`,
+    initialFieldMeta: { type: 'estamp', lang: 'arabic', receivedFrom: '0' } as TFieldMetaSchema,
+  },
+  {
+    id: 'estamp_english',
+    type: FieldType.ESTAMP,
+    icon: StampIcon,
+    name: msg`Stamp (English)`,
+    initialFieldMeta: { type: 'estamp', lang: 'english', receivedFrom: '0' } as TFieldMetaSchema,
   },
 ];
 
@@ -111,6 +120,8 @@ export const EnvelopeEditorFieldDragDrop = ({
   const { t } = useLingui();
 
   const [selectedField, setSelectedField] = useState<FieldType | null>(null);
+  const [selectedButtonId, setSelectedButtonId] = useState<string | null>(null);
+  const selectedButtonMetaRef = useRef<TFieldMetaSchema | undefined>(undefined);
 
   const { isWithinPageBounds, getPage } = useDocumentElement();
 
@@ -182,6 +193,8 @@ export const EnvelopeEditorFieldDragDrop = ({
         )
       ) {
         setSelectedField(null);
+        setSelectedButtonId(null);
+        selectedButtonMetaRef.current = undefined;
         return;
       }
 
@@ -211,13 +224,17 @@ export const EnvelopeEditorFieldDragDrop = ({
         width: fieldPageWidth,
         height: fieldPageHeight,
         recipientId: selectedRecipientId,
-        fieldMeta: structuredClone(FIELD_META_DEFAULT_VALUES[selectedField]),
+        fieldMeta: structuredClone(
+          selectedButtonMetaRef.current ?? FIELD_META_DEFAULT_VALUES[selectedField],
+        ),
       };
 
       editorFields.addField(field);
 
       setIsFieldWithinBounds(false);
       setSelectedField(null);
+      setSelectedButtonId(null);
+      selectedButtonMetaRef.current = undefined;
     },
     [
       isWithinPageBounds,
@@ -283,31 +300,44 @@ export const EnvelopeEditorFieldDragDrop = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-x-2 gap-y-2.5">
-        {fieldButtonList.map((field) => (
-          <button
-            disabled={isFieldsDisabled}
-            key={field.type}
-            type="button"
-            onClick={() => setSelectedField(field.type)}
-            onMouseDown={() => setSelectedField(field.type)}
-            data-selected={selectedField === field.type ? true : undefined}
-            className={cn(
-              'group flex h-12 cursor-pointer items-center justify-center rounded-lg border border-border px-4 transition-colors',
-              selectedRecipientStyles.fieldButton,
-            )}
-          >
-            <p
+        {fieldButtonList.map((field) => {
+          const buttonId = 'id' in field ? (field.id as string) : field.type;
+          const buttonMeta = 'initialFieldMeta' in field ? field.initialFieldMeta : undefined;
+
+          return (
+            <button
+              disabled={isFieldsDisabled}
+              key={buttonId}
+              type="button"
+              onClick={() => {
+                setSelectedField(field.type);
+                setSelectedButtonId(buttonId);
+                selectedButtonMetaRef.current = buttonMeta;
+              }}
+              onMouseDown={() => {
+                setSelectedField(field.type);
+                setSelectedButtonId(buttonId);
+                selectedButtonMetaRef.current = buttonMeta;
+              }}
+              data-selected={buttonId === selectedButtonId ? true : undefined}
               className={cn(
-                'flex items-center justify-center gap-x-1.5 font-noto text-sm font-normal text-muted-foreground group-data-[selected]:text-foreground',
-                field.className,
-                selectedRecipientStyles.fieldButtonText,
+                'group flex h-12 cursor-pointer items-center justify-center rounded-lg border border-border px-4 transition-colors',
+                selectedRecipientStyles.fieldButton,
               )}
             >
-              {field.type !== FieldType.SIGNATURE && <field.icon className="h-4 w-4" />}
-              {t(field.name)}
-            </p>
-          </button>
-        ))}
+              <p
+                className={cn(
+                  'flex items-center justify-center gap-x-1.5 font-noto text-sm font-normal text-muted-foreground group-data-[selected]:text-foreground',
+                  field.className,
+                  selectedRecipientStyles.fieldButtonText,
+                )}
+              >
+                {field.type !== FieldType.SIGNATURE && <field.icon className="h-4 w-4" />}
+                {t(field.name)}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
       {selectedField && (

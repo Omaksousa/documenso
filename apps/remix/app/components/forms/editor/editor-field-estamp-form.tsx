@@ -72,6 +72,7 @@ export const EditorFieldEstampForm = ({
     if (validatedFormValues.success) {
       onValueChange({
         type: 'estamp',
+        lang: value.lang,
         ...validatedFormValues.data,
       });
     }
