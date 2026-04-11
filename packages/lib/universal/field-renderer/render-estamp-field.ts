@@ -21,7 +21,6 @@ const BORDER_COLOR = '#1B3A6B';
 const TEXT_COLOR = '#1B3A6B';
 const FONT_FAMILY = 'Arial, sans-serif';
 
-// Column split: value on left, label on right
 const LABEL_COL_WIDTH = 80;
 const VALUE_COL_WIDTH = STAMP_WIDTH - LABEL_COL_WIDTH;
 const INNER_PADDING = 4;
@@ -31,12 +30,16 @@ const addRow = (
   label: string,
   value: string,
   yOffset: number,
+  lang: 'arabic' | 'english' = 'arabic',
   fontSize = 8,
 ) => {
-  // Vertical divider between value (left) and label (right)
+  const isArabic = lang === 'arabic';
+  const dividerX = isArabic ? VALUE_COL_WIDTH : LABEL_COL_WIDTH;
+
+  // Vertical divider
   group.add(
     new Konva.Line({
-      points: [VALUE_COL_WIDTH, yOffset, VALUE_COL_WIDTH, yOffset + ROW_HEIGHT],
+      points: [dividerX, yOffset, dividerX, yOffset + ROW_HEIGHT],
       stroke: BORDER_COLOR,
       strokeWidth: 0.5,
     }),
@@ -51,41 +54,76 @@ const addRow = (
     }),
   );
 
-  // Label — right column, right-aligned (Arabic RTL)
-  group.add(
-    new Konva.Text({
-      text: label,
-      x: VALUE_COL_WIDTH,
-      y: yOffset,
-      width: LABEL_COL_WIDTH - INNER_PADDING,
-      height: ROW_HEIGHT,
-      fontSize,
-      fontFamily: FONT_FAMILY,
-      fill: TEXT_COLOR,
-      align: 'right',
-      verticalAlign: 'middle',
-    }),
-  );
+  if (isArabic) {
+    // Label — right column, right-aligned (RTL)
+    group.add(
+      new Konva.Text({
+        text: label,
+        x: VALUE_COL_WIDTH,
+        y: yOffset,
+        width: LABEL_COL_WIDTH - INNER_PADDING,
+        height: ROW_HEIGHT,
+        fontSize,
+        fontFamily: FONT_FAMILY,
+        fill: TEXT_COLOR,
+        align: 'right',
+        verticalAlign: 'middle',
+      }),
+    );
 
-  // Value — left column
-  group.add(
-    new Konva.Text({
-      text: value,
-      x: INNER_PADDING,
-      y: yOffset,
-      width: VALUE_COL_WIDTH - INNER_PADDING * 2,
-      height: ROW_HEIGHT,
-      fontSize,
-      fontFamily: FONT_FAMILY,
-      fill: TEXT_COLOR,
-      align: 'left',
-      verticalAlign: 'middle',
-    }),
-  );
+    // Value — left column
+    group.add(
+      new Konva.Text({
+        text: value,
+        x: INNER_PADDING,
+        y: yOffset,
+        width: VALUE_COL_WIDTH - INNER_PADDING * 2,
+        height: ROW_HEIGHT,
+        fontSize,
+        fontFamily: FONT_FAMILY,
+        fill: TEXT_COLOR,
+        align: 'left',
+        verticalAlign: 'middle',
+      }),
+    );
+  } else {
+    // Label — left column, left-aligned (LTR)
+    group.add(
+      new Konva.Text({
+        text: label,
+        x: INNER_PADDING,
+        y: yOffset,
+        width: LABEL_COL_WIDTH - INNER_PADDING,
+        height: ROW_HEIGHT,
+        fontSize,
+        fontFamily: FONT_FAMILY,
+        fill: TEXT_COLOR,
+        align: 'left',
+        verticalAlign: 'middle',
+      }),
+    );
+
+    // Value — right column
+    group.add(
+      new Konva.Text({
+        text: value,
+        x: LABEL_COL_WIDTH + INNER_PADDING,
+        y: yOffset,
+        width: VALUE_COL_WIDTH - INNER_PADDING * 2,
+        height: ROW_HEIGHT,
+        fontSize,
+        fontFamily: FONT_FAMILY,
+        fill: TEXT_COLOR,
+        align: 'left',
+        verticalAlign: 'middle',
+      }),
+    );
+  }
 };
 
 const createFieldEstamp = (field: FieldToRender): Konva.Group => {
   const fieldMeta = field.fieldMeta?.type === 'estamp' ? field.fieldMeta : undefined;
+  const lang = fieldMeta?.lang ?? 'arabic';
   const estampGroup = new Konva.Group();
 
   // Outer border
@@ -192,17 +230,25 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
 
   let rowY = HEADER_HEIGHT;
 
-  addRow(estampGroup, 'رقم :', externalId, rowY);
-  rowY += ROW_HEIGHT;
+  const rows =
+    lang === 'english'
+      ? [
+          { label: 'Number:', value: externalId },
+          { label: 'Date:', value: dateValue },
+          { label: 'Received From:', value: receivedFromValue },
+          { label: 'Attachments:', value: numberOfDocuments },
+        ]
+      : [
+          { label: 'رقم :', value: externalId },
+          { label: 'التاريخ :', value: dateValue },
+          { label: 'وارد من :', value: receivedFromValue },
+          { label: 'المرفقات :', value: numberOfDocuments },
+        ];
 
-  addRow(estampGroup, 'التاريخ :', dateValue, rowY);
-  rowY += ROW_HEIGHT;
-
-  addRow(estampGroup, 'وارد من :', receivedFromValue, rowY);
-  rowY += ROW_HEIGHT;
-
-  addRow(estampGroup, 'المرفقات :', numberOfDocuments, rowY);
-  rowY += ROW_HEIGHT;
+  for (const row of rows) {
+    addRow(estampGroup, row.label, row.value, rowY, lang);
+    rowY += ROW_HEIGHT;
+  }
 
   // ── BARCODE ROW ──────────────────────────────────────────────────────────
   if (externalId) {

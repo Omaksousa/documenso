@@ -160,6 +160,7 @@ export const ZSignatureFieldMeta = ZBaseFieldMeta.extend({
 
 export const ZEstampFieldMeta = ZBaseFieldMeta.extend({
   type: z.literal('estamp'),
+  lang: z.enum(['arabic', 'english']).optional().default('arabic'),
   receivedFrom: z.string(),
   stampedAt: z.string().optional(),
   envelopeExternalId: z.string().optional(),
