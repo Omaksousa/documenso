@@ -11,7 +11,7 @@ import {
 import type { FieldToRender, RenderFieldElementOptions } from './field-renderer';
 
 const STAMP_WIDTH = 210;
-const HEADER_HEIGHT = 48;
+const HEADER_HEIGHT = 38;
 const ROW_HEIGHT = 22;
 const BARCODE_ROW_HEIGHT = 24;
 const NUM_ROWS = 4; // رقم, التاريخ, وارد من, المرفقات
