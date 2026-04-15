@@ -7,6 +7,7 @@ import { validateFieldAuth } from '@documenso/lib/server-only/document/validate-
 import { DOCUMENT_AUDIT_LOG_TYPE } from '@documenso/lib/types/document-audit-logs';
 import { ZEstampFieldMeta } from '@documenso/lib/types/field-meta';
 import { createDocumentAuditLogData } from '@documenso/lib/utils/document-audit-logs';
+import { mapSecondaryIdToDocumentId } from '@documenso/lib/utils/envelope';
 import { extractFieldInsertionValues } from '@documenso/lib/utils/envelope-signing';
 import { prisma } from '@documenso/prisma';
 
@@ -231,7 +232,9 @@ export const signEnvelopeFieldRoute = procedure
             fieldMeta: {
               ...parsedEstampMeta,
               stampedAt: new Date().toISOString(),
-              envelopeExternalId: envelope.secondaryId || undefined,
+              envelopeExternalId: envelope.secondaryId
+                ? String(mapSecondaryIdToDocumentId(envelope.secondaryId))
+                : undefined,
               envelopeItems: envelope.envelopeItems.length,
             },
           },

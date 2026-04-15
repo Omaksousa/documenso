@@ -90,6 +90,13 @@ export const DocumentsTable = ({
           i18n.date(row.original.createdAt, { ...DateTime.DATETIME_SHORT, hourCycle: 'h12' }),
       },
       {
+        header: _(msg`ID`),
+        accessorKey: 'id',
+        cell: ({ row }) => (
+          <span className="font-mono text-xs text-muted-foreground">{row.original.id}</span>
+        ),
+      },
+      {
         header: _(msg`Title`),
         cell: ({ row }) => <DataTableTitle row={row.original} teamUrl={team?.url} />,
       },
@@ -173,6 +180,9 @@ export const DocumentsTable = ({
                   <Skeleton className="h-4 w-4 rounded" />
                 </TableCell>
               )}
+              <TableCell>
+                <Skeleton className="h-4 w-24 rounded-full" />
+              </TableCell>
               <TableCell>
                 <Skeleton className="h-4 w-40 rounded-full" />
               </TableCell>
