@@ -233,16 +233,16 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
   const rows =
     lang === 'english'
       ? [
-          { label: 'Number:', value: externalId },
-          { label: 'Date:', value: dateValue },
-          { label: 'Received From:', value: receivedFromValue },
-          { label: 'Attachments:', value: numberOfDocuments },
+          { label: 'Number', value: externalId },
+          { label: 'Date', value: dateValue },
+          { label: 'Received From', value: receivedFromValue },
+          { label: 'Attachments', value: numberOfDocuments },
         ]
       : [
-          { label: 'رقم :', value: externalId },
-          { label: 'التاريخ :', value: dateValue },
-          { label: 'وارد من :', value: receivedFromValue },
-          { label: 'المرفقات :', value: numberOfDocuments },
+          { label: 'رقم', value: externalId },
+          { label: 'التاريخ', value: dateValue },
+          { label: 'وارد من', value: receivedFromValue },
+          { label: 'المرفقات', value: numberOfDocuments },
         ];
 
   for (const row of rows) {
