@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: documenso-app\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-04-02 08:21\n"
+"PO-Revision-Date: 2026-03-19 04:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1019,7 +1019,7 @@ msgstr "用于标识你团队的唯一 URL"
 
 #: apps/remix/app/components/embed/embed-direct-template-client-page.tsx
 msgid "A valid email is required"
-msgstr "需要提供有效的电子邮箱地址"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/team-email-add-dialog.tsx
 msgid "A verification email will be sent to the provided email."
@@ -1178,6 +1178,10 @@ msgstr "活动会话"
 #: apps/remix/app/routes/_authenticated+/admin+/stats.tsx
 msgid "Active Subscriptions"
 msgstr "有效订阅"
+
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "AD Date"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/team-email-add-dialog.tsx
 #: apps/remix/app/components/general/document/document-attachments-popover.tsx
@@ -1448,7 +1452,7 @@ msgstr "提交后，将自动生成一个文档并添加到您的“文档”页
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "AI features"
-msgstr "AI 功能"
+msgstr ""
 
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 msgid "AI Features"
@@ -1964,6 +1968,10 @@ msgctxt "Recipient role progressive verb"
 msgid "Approving"
 msgstr "审批中"
 
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-drag-drop.tsx
+msgid "AR Stamp"
+msgstr ""
+
 #: apps/remix/app/components/dialogs/assistant-confirmation-dialog.tsx
 msgid "Are you sure you want to complete the document? This action cannot be undone. Please ensure that you have completed prefilling all relevant fields before proceeding."
 msgstr "您确定要完成此文档吗？此操作无法撤销。请确保您已完成所有相关字段的预填后再继续。"
@@ -2090,6 +2098,7 @@ msgstr "附件添加成功。"
 msgid "Attachment removed successfully."
 msgstr "附件删除成功。"
 
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-attachments-popover.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-attachments-popover.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-page-view-v2.tsx
@@ -2229,11 +2238,11 @@ msgstr "品牌"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Branding company details"
-msgstr "品牌公司详情"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Branding logo"
-msgstr "品牌徽标"
+msgstr ""
 
 #: apps/remix/app/components/forms/branding-preferences-form.tsx
 msgid "Branding Logo"
@@ -2255,7 +2264,7 @@ msgstr "品牌偏好设置已更新"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Branding URL"
-msgstr "品牌 URL"
+msgstr ""
 
 #: apps/remix/app/components/tables/admin-document-logs-table.tsx
 #: apps/remix/app/components/tables/document-logs-table.tsx
@@ -2354,8 +2363,6 @@ msgstr "找不到某个人？"
 #: apps/remix/app/components/dialogs/envelope-item-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/envelope-item-edit-dialog.tsx
 #: apps/remix/app/components/dialogs/envelope-redistribute-dialog.tsx
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
 #: apps/remix/app/components/dialogs/envelopes-bulk-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/envelopes-bulk-move-dialog.tsx
 #: apps/remix/app/components/dialogs/folder-create-dialog.tsx
@@ -2382,6 +2389,7 @@ msgstr "找不到某个人？"
 #: apps/remix/app/components/dialogs/session-logout-all-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-checkbox-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-email-dialog.tsx
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-initials-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-name-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-number-dialog.tsx
@@ -2908,7 +2916,7 @@ msgstr "控制收件人在文档过期前完成签署的时间长度。过期后
 
 #: apps/remix/app/components/forms/email-preferences-form.tsx
 msgid "Controls the default email settings when new documents or templates are created. Updating these settings will not affect existing documents or templates."
-msgstr "控制在创建新文档或模板时的默认电子邮件设置。更新这些设置不会影响现有文档或模板。"
+msgstr ""
 
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 msgid "Controls the default language of an uploaded document. This will be used as the language in email communications with the recipients."
@@ -2989,7 +2997,7 @@ msgstr "复制链接"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Copy organisation ID"
-msgstr "复制组织 ID"
+msgstr ""
 
 #: apps/remix/app/components/tables/settings-public-profile-templates-table.tsx
 msgid "Copy sharable link"
@@ -3006,7 +3014,7 @@ msgstr "复制签署链接"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Copy team ID"
-msgstr "复制团队 ID"
+msgstr ""
 
 #: apps/remix/app/components/forms/token.tsx
 msgid "Copy token"
@@ -3049,10 +3057,6 @@ msgstr "创建支持工单"
 #: apps/remix/app/components/dialogs/team-create-dialog.tsx
 msgid "Create a team to collaborate with your team members."
 msgstr "创建一个团队，与团队成员协作。"
-
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-msgid "Create a template from this document."
-msgstr "从此文档创建一个模板。"
 
 #: apps/remix/app/components/forms/signup.tsx
 #: apps/remix/app/routes/_unauthenticated+/organisation.invite.$token.tsx
@@ -3290,7 +3294,7 @@ msgstr "当前收件人："
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 msgid "Current usage against organisation limits."
-msgstr "当前使用量与组织限制对比。"
+msgstr ""
 
 #: apps/remix/app/components/general/teams/team-inherit-member-alert.tsx
 msgid "Currently all organisation members can access this team"
@@ -3343,7 +3347,7 @@ msgstr "创建日期"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Date format"
-msgstr "日期格式"
+msgstr ""
 
 #: apps/remix/app/components/embed/authoring/configure-document-advanced-settings.tsx
 #: apps/remix/app/components/general/envelope-editor/envelope-editor-settings-dialog.tsx
@@ -3404,11 +3408,11 @@ msgstr "默认收件人"
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 msgid "Default settings applied to this organisation."
-msgstr "已将默认设置应用于此组织。"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Default settings applied to this team. Inherited values come from the organisation."
-msgstr "已将默认设置应用于此团队。继承的值来自组织。"
+msgstr ""
 
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 msgid "Default Signature Settings"
@@ -3431,7 +3435,7 @@ msgstr "默认值"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Delegate document ownership"
-msgstr "委派文档所有权"
+msgstr ""
 
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 msgid "Delegate Document Ownership"
@@ -3734,6 +3738,7 @@ msgid "Direct template link usage exceeded ({0}/{1})"
 msgstr "直接模板链接使用量已超出（{0}/{1}）"
 
 #: apps/remix/app/components/forms/editor/editor-field-checkbox-form.tsx
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
 #: apps/remix/app/components/forms/editor/editor-field-radio-form.tsx
 #: packages/ui/primitives/document-flow/field-items-advanced-settings/checkbox-field.tsx
 msgid "Direction"
@@ -3935,7 +3940,7 @@ msgstr "通过直链模板创建的文档"
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Document created from direct template email"
-msgstr "通过直接模板电子邮件创建的文档"
+msgstr ""
 
 #: apps/remix/app/components/general/template/template-page-view-recent-activity.tsx
 msgid "Document created using a <0>direct link</0>"
@@ -4017,7 +4022,7 @@ msgstr "文档正在使用旧版字段插入方式"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Document language"
-msgstr "文档语言"
+msgstr ""
 
 #: apps/remix/app/components/tables/templates-table.tsx
 msgid "Document Limit Exceeded!"
@@ -4082,10 +4087,6 @@ msgstr "文档已被拒签"
 msgid "Document Rejected"
 msgstr "文档已被拒签"
 
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Document Renamed"
-msgstr "文档已重命名"
-
 #: apps/remix/app/components/general/document/document-edit-form.tsx
 msgid "Document sent"
 msgstr "文档已发送"
@@ -4120,7 +4121,7 @@ msgstr "文档状态"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Document timezone"
-msgstr "文档时区"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/documents.$id.logs.tsx
 msgid "Document title"
@@ -4363,7 +4364,7 @@ msgstr "绘制"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Draw signature"
-msgstr "手写签名"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/envelope-item-edit-dialog.tsx
 msgid "Drop PDF here or click to select"
@@ -4564,7 +4565,7 @@ msgstr "邮箱已创建"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Email document settings"
-msgstr "文档邮件设置"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/email-domains.$id.tsx
 msgid "Email Domain"
@@ -4629,7 +4630,7 @@ msgstr "向收件人发送电子签署请求电子邮件"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Email reply-to"
-msgstr "邮件回复地址"
+msgstr ""
 
 #: packages/lib/utils/document-audit-logs.ts
 msgctxt "Audit log format"
@@ -4658,7 +4659,7 @@ msgstr "邮件设置"
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Email the owner when a document is created from a direct template"
-msgstr "当通过直接模板创建文档时向所有者发送电子邮件"
+msgstr ""
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Email the owner when a recipient signs"
@@ -4698,6 +4699,10 @@ msgstr "内嵌、包含 5 名成员等更多功能"
 #: packages/ui/primitives/document-flow/add-fields.tsx
 msgid "Empty field"
 msgstr "空字段"
+
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-drag-drop.tsx
+msgid "EN Stamp"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/team-inherit-member-enable-dialog.tsx
 msgid "Enable"
@@ -4805,6 +4810,7 @@ msgid "Ensure that you are using the embedding token, not the API token"
 msgstr "请确保您使用的是嵌入令牌，而不是 API 令牌"
 
 #: apps/remix/app/components/dialogs/sign-field-email-dialog.tsx
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-initials-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-name-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-number-dialog.tsx
@@ -4815,10 +4821,6 @@ msgstr "输入"
 #: apps/remix/app/components/dialogs/folder-create-dialog.tsx
 msgid "Enter a name for your new folder. Folders help you organise your items."
 msgstr "为新文件夹输入名称。文件夹可以帮助您整理项目。"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Enter a new title"
-msgstr "输入新标题"
 
 #: apps/remix/app/components/forms/subscription-claim-form.tsx
 msgid "Enter claim name"
@@ -4839,6 +4841,10 @@ msgstr "输入姓名"
 #: apps/remix/app/components/dialogs/sign-field-number-dialog.tsx
 msgid "Enter Number"
 msgstr "输入数字"
+
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "Enter Stamp Details"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/sign-field-text-dialog.tsx
 msgid "Enter Text"
@@ -4893,6 +4899,7 @@ msgstr "在此输入您的号码"
 msgid "Enter your password"
 msgstr "输入您的密码"
 
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
 #: apps/remix/app/components/dialogs/sign-field-text-dialog.tsx
 #: apps/remix/app/components/general/document-signing/document-signing-text-field.tsx
 msgid "Enter your text here"
@@ -5048,6 +5055,10 @@ msgstr "加载页面时出错"
 #: apps/remix/app/components/embed/authoring/configure-document-upload.tsx
 msgid "Error uploading file"
 msgstr "上传文件时出错"
+
+#: packages/lib/utils/fields.ts
+msgid "Estamp"
+msgstr ""
 
 #: apps/remix/app/components/general/webhook-logs-sheet.tsx
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/settings.webhooks.$id._index.tsx
@@ -5277,10 +5288,14 @@ msgstr "字段字体大小"
 msgid "Field format"
 msgstr "字段格式"
 
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Field From"
+msgstr ""
+
 #: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page.tsx
 #: packages/ui/primitives/document-flow/field-item.tsx
 msgid "Field ID:"
-msgstr "字段 ID："
+msgstr ""
 
 #: apps/remix/app/components/forms/editor/editor-field-generic-field-forms.tsx
 #: apps/remix/app/components/forms/editor/editor-field-text-form.tsx
@@ -5438,6 +5453,10 @@ msgstr "免费签名设置"
 msgid "French"
 msgstr "法语"
 
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "From is required"
+msgstr ""
+
 #: apps/remix/app/components/embed/embed-direct-template-client-page.tsx
 #: apps/remix/app/components/embed/embed-document-signing-page-v1.tsx
 #: apps/remix/app/components/embed/multisign/multi-sign-document-signing-view.tsx
@@ -5481,7 +5500,7 @@ msgstr "全局收件人操作认证"
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Global Settings"
-msgstr "全局设置"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
@@ -5688,6 +5707,10 @@ msgstr "隐藏"
 msgid "Hide license key"
 msgstr "隐藏许可证密钥"
 
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "Hijri Date"
+msgstr ""
+
 #: apps/remix/app/components/dialogs/folder-move-dialog.tsx
 #: apps/remix/app/components/general/folder/folder-grid.tsx
 #: apps/remix/app/components/general/generic-error-layout.tsx
@@ -5808,29 +5831,25 @@ msgstr "未启用"
 msgid "Inbox"
 msgstr "收件箱"
 
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Inbox (وارد من)"
+msgstr ""
+
 #: apps/remix/app/components/general/app-command-menu.tsx
 msgid "Inbox documents"
 msgstr "收件箱中的文档"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Include audit log"
-msgstr "包含审计日志"
-
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-msgid "Include Fields"
-msgstr "包含字段"
-
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-msgid "Include Recipients"
-msgstr "包含签署人"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Include sender details"
-msgstr "包含发送方详情"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Include signing certificate"
-msgstr "包含签名证书"
+msgstr ""
 
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 msgid "Include the Audit Logs in the Document"
@@ -5877,7 +5896,7 @@ msgstr "继承组织成员"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Inherited"
-msgstr "已继承"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
@@ -6006,7 +6025,7 @@ msgstr "请先将他们邀请到组织中"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Invited"
-msgstr "已邀请"
+msgstr ""
 
 #: apps/remix/app/components/tables/organisation-member-invites-table.tsx
 msgid "Invited At"
@@ -6089,7 +6108,7 @@ msgstr "加入时间 {0}"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Key identifiers and relationships for this team."
-msgstr "此团队的关键标识符和关联关系。"
+msgstr ""
 
 #: packages/lib/constants/i18n.ts
 msgid "Korean"
@@ -6433,7 +6452,7 @@ msgstr "管理订阅"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Manage team"
-msgstr "管理团队"
+msgstr ""
 
 #. placeholder {0}: organisation.name
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
@@ -6448,7 +6467,7 @@ msgstr "管理 {0} 组织的订阅"
 #. placeholder {0}: team.name
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Manage the {0} team"
-msgstr "管理 {0} 团队"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/o.$orgUrl.settings.groups._index.tsx
 msgid "Manage the custom groups of members for your organisation."
@@ -6590,7 +6609,7 @@ msgstr "成员"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Members that currently belong to this team."
-msgstr "当前属于此团队的成员。"
+msgstr ""
 
 #: apps/remix/app/components/forms/support-ticket-form.tsx
 msgid "Message"
@@ -7024,7 +7043,7 @@ msgstr "未找到"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Not set"
-msgstr "未设置"
+msgstr ""
 
 #: apps/remix/app/components/forms/signin.tsx
 msgid "Not supported"
@@ -7054,6 +7073,10 @@ msgstr "数字格式"
 msgid "Number needs to be formatted as {numberFormat}"
 msgstr "数字必须按 {numberFormat} 的格式输入"
 
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Number of attachments"
+msgstr ""
+
 #: apps/remix/app/components/forms/subscription-claim-form.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 msgid "Number of members allowed. 0 = Unlimited"
@@ -7070,11 +7093,11 @@ msgstr "数字设置"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Off"
-msgstr "关闭"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "On"
-msgstr "开启"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/webhook-create-dialog.tsx
 msgid "On this page, you can create a new webhook."
@@ -7216,7 +7239,7 @@ msgstr "组织已成功更新"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Organisation ID"
-msgstr "组织 ID"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/_layout.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/organisation-insights._index.tsx
@@ -7302,11 +7325,11 @@ msgstr "组织 URL"
 
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 msgid "Organisation usage"
-msgstr "组织用量"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Organisation-level pending invites for this team's parent organisation."
-msgstr "此团队的上级组织在组织层级的待处理邀请。"
+msgstr ""
 
 #: apps/remix/app/components/general/org-menu-switcher.tsx
 #: apps/remix/app/components/general/settings-nav-desktop.tsx
@@ -7346,6 +7369,10 @@ msgstr "原始"
 msgid "Otherwise, the document will be created as a draft."
 msgstr "否则将把文档创建为草稿。"
 
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Outbox (صادر الى)"
+msgstr ""
+
 #: apps/remix/app/components/forms/document-preferences-form.tsx
 #: apps/remix/app/components/forms/email-preferences-form.tsx
 msgid "Override organisation settings"
@@ -7370,15 +7397,15 @@ msgstr "所有者"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Owner document completed"
-msgstr "所有者文档已完成"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Owner document created"
-msgstr "所有者文档已创建"
+msgstr ""
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Owner recipient expired"
-msgstr "所有者收件人已过期"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/admin-organisation-member-update-dialog.tsx
 msgid "Ownership transferred to {organisationMemberName}."
@@ -7533,7 +7560,7 @@ msgstr "待处理邀请"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Pending Organisation Invites"
-msgstr "待处理的组织邀请"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/email-domains.$id.tsx
 msgid "Pending since"
@@ -7684,6 +7711,10 @@ msgstr "请输入有效的数字"
 #: apps/remix/app/components/dialogs/sign-field-text-dialog.tsx
 msgid "Please enter a value"
 msgstr "请输入一个值"
+
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "Please enter the stamp details"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/sign-field-email-dialog.tsx
 msgid "Please enter your email address"
@@ -8046,6 +8077,11 @@ msgstr "理由必须少于 500 个字符"
 msgid "Reauthentication is required to sign this field"
 msgstr "签署此字段需要重新验证身份"
 
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Received From"
+msgstr ""
+
 #: packages/ui/components/recipient/recipient-role-select.tsx
 msgid "Receives copy"
 msgstr "接收副本"
@@ -8106,7 +8142,7 @@ msgstr "收件人未能验证此文档的双重验证 (2FA) 令牌"
 #: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page.tsx
 #: packages/ui/primitives/document-flow/field-item.tsx
 msgid "Recipient ID:"
-msgstr "收件人 ID："
+msgstr ""
 
 #: packages/lib/utils/document-audit-logs.ts
 msgid "Recipient rejected the document"
@@ -8114,7 +8150,7 @@ msgstr "收件人已拒绝此文档"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Recipient removed"
-msgstr "收件人已移除"
+msgstr ""
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Recipient removed email"
@@ -8126,7 +8162,7 @@ msgstr "收件人请求了此文档的双重验证 (2FA) 令牌"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Recipient signed"
-msgstr "收件人已签署"
+msgstr ""
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Recipient signed email"
@@ -8138,7 +8174,7 @@ msgstr "收件人已签署此文档"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Recipient signing request"
-msgstr "收件人签署请求"
+msgstr ""
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "Recipient signing request email"
@@ -8341,21 +8377,6 @@ msgstr "移除团队邮箱"
 #: apps/remix/app/components/tables/team-members-table.tsx
 msgid "Remove team member"
 msgstr "移除团队成员"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-#: apps/remix/app/components/general/document/document-page-view-dropdown.tsx
-#: apps/remix/app/components/tables/documents-table-action-dropdown.tsx
-#: apps/remix/app/components/tables/templates-table-action-dropdown.tsx
-msgid "Rename"
-msgstr "重命名"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Rename Document"
-msgstr "重命名文档"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Rename Template"
-msgstr "重命名模板"
 
 #: apps/remix/app/components/forms/password.tsx
 #: apps/remix/app/components/forms/reset-password.tsx
@@ -8630,15 +8651,6 @@ msgstr "每页行数"
 msgid "Save"
 msgstr "保存"
 
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-#: apps/remix/app/components/general/document/document-page-view-dropdown.tsx
-#: apps/remix/app/components/general/envelope-editor/envelope-editor.tsx
-#: apps/remix/app/components/general/envelope-editor/envelope-editor.tsx
-#: apps/remix/app/components/tables/documents-table-action-dropdown.tsx
-msgid "Save as Template"
-msgstr "另存为模板"
-
 #: packages/lib/client-only/providers/envelope-editor-provider.tsx
 #: packages/lib/client-only/providers/envelope-editor-provider.tsx
 #: packages/lib/client-only/providers/envelope-editor-provider.tsx
@@ -8830,6 +8842,7 @@ msgid "Select default role"
 msgstr "选择默认角色"
 
 #: apps/remix/app/components/forms/editor/editor-field-checkbox-form.tsx
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
 #: apps/remix/app/components/forms/editor/editor-field-radio-form.tsx
 #: packages/ui/primitives/document-flow/field-items-advanced-settings/checkbox-field.tsx
 msgid "Select direction"
@@ -9013,6 +9026,11 @@ msgstr "向以下收件人发送提醒"
 #: apps/remix/app/routes/_authenticated+/admin+/documents.$id.tsx
 msgid "Send Status"
 msgstr "发送状态"
+
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+#: apps/remix/app/components/forms/editor/editor-field-estamp-form.tsx
+msgid "Send To"
+msgstr ""
 
 #: apps/remix/app/components/tables/documents-table.tsx
 #: apps/remix/app/components/tables/inbox-table.tsx
@@ -9413,7 +9431,6 @@ msgstr "部分签署人尚未被分配签名字段。请在继续前为每位签
 #: apps/remix/app/components/dialogs/envelope-download-dialog.tsx
 #: apps/remix/app/components/dialogs/envelope-duplicate-dialog.tsx
 #: apps/remix/app/components/dialogs/envelope-redistribute-dialog.tsx
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
 #: apps/remix/app/components/dialogs/organisation-member-invite-dialog.tsx
 #: apps/remix/app/components/dialogs/team-email-delete-dialog.tsx
 #: apps/remix/app/components/dialogs/team-email-delete-dialog.tsx
@@ -9527,10 +9544,6 @@ msgstr "出现了一些问题。请稍后重试。"
 msgid "Something went wrong. Please try again or contact support."
 msgstr "出错了。请重试或联系支持。"
 
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Something went wrong. Please try again."
-msgstr "出现问题。请重试。"
-
 #: apps/remix/app/components/general/document/document-audit-log-download-button.tsx
 msgid "Sorry, we were unable to download the audit logs. Please try again later."
 msgstr "抱歉，我们未能下载审计日志。请稍后再试。"
@@ -9555,6 +9568,14 @@ msgstr "西班牙语"
 #: apps/remix/app/routes/_authenticated+/o.$orgUrl.settings._layout.tsx
 msgid "SSO"
 msgstr "SSO"
+
+#: packages/ui/primitives/document-flow/types.ts
+msgid "Stamp"
+msgstr ""
+
+#: apps/remix/app/components/general/envelope-editor/envelope-editor-fields-page.tsx
+msgid "Stamp Settings"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/_layout.tsx
 msgid "Stats"
@@ -9817,7 +9838,7 @@ msgstr "团队数量"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Team details"
-msgstr "团队详情"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 #: apps/remix/app/routes/_authenticated+/t.$teamUrl+/settings._index.tsx
@@ -9844,7 +9865,7 @@ msgstr "团队邮箱已被 {0} 撤销"
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Team email name"
-msgstr "团队邮件名称"
+msgstr ""
 
 #: packages/email/templates/team-email-removed.tsx
 msgid "Team email removed"
@@ -9873,7 +9894,7 @@ msgstr "团队组"
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Team ID"
-msgstr "团队 ID"
+msgstr ""
 
 #: packages/lib/constants/teams-translations.ts
 msgid "Team Manager"
@@ -9921,7 +9942,7 @@ msgstr "仅团队可见的模板不会在其他地方被链接，只对你的团
 
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "Team role"
-msgstr "团队角色"
+msgstr ""
 
 #: apps/remix/app/components/dialogs/team-group-create-dialog.tsx
 #: apps/remix/app/components/dialogs/team-member-create-dialog.tsx
@@ -9985,7 +10006,6 @@ msgstr "模板"
 msgid "Template (Legacy)"
 msgstr "模板（旧版）"
 
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
 #: apps/remix/app/routes/embed+/v1+/authoring_.completed.create.tsx
 #: apps/remix/app/routes/embed+/v2+/authoring+/envelope.create._index.tsx
 msgid "Template Created"
@@ -10026,10 +10046,6 @@ msgstr "模板正在使用旧版字段插入方式"
 #: apps/remix/app/components/dialogs/template-move-to-folder-dialog.tsx
 msgid "Template moved"
 msgstr "模板已移动"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Template Renamed"
-msgstr "模板已重命名"
 
 #: apps/remix/app/components/general/template/template-edit-form.tsx
 msgid "Template saved"
@@ -10152,6 +10168,10 @@ msgstr "账户已成功禁用。"
 #: apps/remix/app/components/dialogs/admin-user-enable-dialog.tsx
 msgid "The account has been enabled successfully."
 msgstr "账户已成功启用。"
+
+#: apps/remix/app/components/dialogs/sign-field-estamp-dialog.tsx
+msgid "The AD and Hijri dates are more than 2 days apart."
+msgstr ""
 
 #: packages/ui/components/recipient/recipient-action-auth-select.tsx
 msgid "The authentication methods required for recipients to sign fields"
@@ -10615,10 +10635,6 @@ msgstr "当前无法复制此文档。请重试。"
 msgid "This document could not be re-sent at this time. Please try again."
 msgstr "当前无法重新发送此文档。请重试。"
 
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-msgid "This document could not be saved as a template at this time. Please try again."
-msgstr "当前无法将此文档保存为模板。请重试。"
-
 #: apps/remix/app/components/general/envelope-editor/envelope-recipient-selector.tsx
 #: packages/ui/primitives/recipient-selector.tsx
 msgid "This document has already been sent to this recipient. You can no longer edit this recipient."
@@ -10679,7 +10695,7 @@ msgstr "此邮箱已被其他团队使用。"
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "This email is sent to the document owner when a recipient creates a document via a direct template link."
-msgstr "当收件人通过直接模板链接创建文档时，此电子邮件将发送给文档所有者。"
+msgstr ""
 
 #: packages/ui/components/document/document-email-checkboxes.tsx
 msgid "This email is sent to the document owner when a recipient has signed the document."
@@ -10858,7 +10874,6 @@ msgstr "时区"
 msgid "Time Zone"
 msgstr "时区"
 
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
 #: apps/remix/app/components/embed/authoring/configure-document-view.tsx
 #: apps/remix/app/components/general/template/template-page-view-documents-table.tsx
 #: apps/remix/app/components/tables/documents-table.tsx
@@ -11161,7 +11176,7 @@ msgstr "输入您的签名"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Typed signature"
-msgstr "键入签名"
+msgstr ""
 
 #: apps/remix/app/components/general/document-signing/document-signing-signature-field.tsx
 msgid "Typed signatures are not allowed. Please draw your signature."
@@ -11540,7 +11555,7 @@ msgstr "上传失败"
 
 #: apps/remix/app/components/general/admin-global-settings-section.tsx
 msgid "Upload signature"
-msgstr "上传签名"
+msgstr ""
 
 #: packages/ui/primitives/signature-pad/signature-pad-upload.tsx
 msgid "Upload Signature"
@@ -11632,7 +11647,7 @@ msgstr "用户没有密码。"
 #: apps/remix/app/routes/_authenticated+/admin+/organisations.$id.tsx
 #: apps/remix/app/routes/_authenticated+/admin+/teams.$id.tsx
 msgid "User ID"
-msgstr "用户 ID"
+msgstr ""
 
 #: apps/remix/app/routes/_authenticated+/admin+/users.$id.tsx
 msgid "User not found"
@@ -13319,10 +13334,6 @@ msgstr "您的文档已被管理员删除！"
 msgid "Your document has been re-sent successfully."
 msgstr "你的文档已成功重新发送。"
 
-#: apps/remix/app/components/dialogs/envelope-save-as-template-dialog.tsx
-msgid "Your document has been saved as a template."
-msgstr "您的文档已保存为模板。"
-
 #: apps/remix/app/components/general/document/document-edit-form.tsx
 msgid "Your document has been sent successfully."
 msgstr "你的文档已成功发送。"
@@ -13330,10 +13341,6 @@ msgstr "你的文档已成功发送。"
 #: apps/remix/app/components/dialogs/document-duplicate-dialog.tsx
 msgid "Your document has been successfully duplicated."
 msgstr "你的文档已成功复制。"
-
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Your document has been successfully renamed."
-msgstr "您的文档已成功重命名。"
 
 #: apps/remix/app/routes/embed+/v2+/authoring+/envelope.edit.$id.tsx
 msgid "Your document has been updated successfully"
@@ -13502,10 +13509,6 @@ msgstr "你的模板已成功复制。"
 msgid "Your template has been successfully deleted."
 msgstr "你的模板已成功删除。"
 
-#: apps/remix/app/components/dialogs/envelope-rename-dialog.tsx
-msgid "Your template has been successfully renamed."
-msgstr "您的模板已成功重命名。"
-
 #: apps/remix/app/routes/embed+/v2+/authoring+/envelope.edit.$id.tsx
 msgid "Your template has been updated successfully"
 msgstr "您的模板已成功更新"
@@ -13554,4 +13557,3 @@ msgstr "您的验证码："
 #: apps/remix/app/routes/_authenticated+/o.$orgUrl.settings.sso.tsx
 msgid "your-domain.com another-domain.com"
 msgstr "your-domain.com another-domain.com"
-

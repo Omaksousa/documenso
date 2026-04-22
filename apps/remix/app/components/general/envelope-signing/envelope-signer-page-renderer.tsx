@@ -38,6 +38,7 @@ import { useEmbedSigningContext } from '~/components/embed/embed-signing-context
 import { handleCheckboxFieldClick } from '~/utils/field-signing/checkbox-field';
 import { handleDropdownFieldClick } from '~/utils/field-signing/dropdown-field';
 import { handleEmailFieldClick } from '~/utils/field-signing/email-field';
+import { handleEstampFieldClick } from '~/utils/field-signing/estamp-field';
 import { handleInitialsFieldClick } from '~/utils/field-signing/initial-field';
 import { handleNameFieldClick } from '~/utils/field-signing/name-field';
 import { handleNumberFieldClick } from '~/utils/field-signing/number-field';
@@ -267,6 +268,21 @@ export const EnvelopeSignerPageRenderer = ({ pageData }: { pageData: PageRenderD
          */
         .with({ type: FieldType.TEXT }, (field) => {
           handleTextFieldClick({ field, text: null })
+            .then(async (payload) => {
+              if (payload) {
+                fieldGroup.add(loadingSpinnerGroup);
+                await signField(field.id, payload);
+              }
+            })
+            .finally(() => {
+              loadingSpinnerGroup.destroy();
+            });
+        })
+        /**
+         * Estamp FIELD.
+         */
+        .with({ type: FieldType.ESTAMP }, (field) => {
+          handleEstampFieldClick({ field, text: null })
             .then(async (payload) => {
               if (payload) {
                 fieldGroup.add(loadingSpinnerGroup);

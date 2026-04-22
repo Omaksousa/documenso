@@ -300,6 +300,7 @@ export const signFieldWithToken = async ({
               FieldType.NAME,
               FieldType.TEXT,
               FieldType.INITIALS,
+              FieldType.ESTAMP,
               (type) => ({
                 type,
                 data: updatedField.customText,

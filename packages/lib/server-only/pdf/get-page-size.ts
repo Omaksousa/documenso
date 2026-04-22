@@ -13,31 +13,14 @@ const MIN_CERT_PAGE_HEIGHT = 300;
  * Falls back to MediaBox when it's smaller than CropBox, following typical PDF reader behavior.
  */
 export const getPageSize = (page: PDFPage) => {
-  let mediaBox;
-  let cropBox;
+  const cropBox = page.getCropBox();
+  const mediaBox = page.getMediaBox();
 
-  try {
-    mediaBox = page.getMediaBox();
-  } catch {
-    // MediaBox lookup can fail for malformed PDFs where the entry is not a valid PDFArray.
+  if (mediaBox.width < cropBox.width || mediaBox.height < cropBox.height) {
+    return mediaBox;
   }
 
-  try {
-    cropBox = page.getCropBox();
-  } catch {
-    // CropBox lookup can fail for malformed PDFs where the entry is not a valid PDFArray.
-  }
-
-  if (mediaBox && cropBox) {
-    if (mediaBox.width < cropBox.width || mediaBox.height < cropBox.height) {
-      return mediaBox;
-    }
-
-    return cropBox;
-  }
-
-  // If either box is missing or invalid, fall back to MediaBox if available, otherwise CropBox, or default to A4 size.
-  return mediaBox || cropBox || PDF_SIZE_A4_72PPI;
+  return cropBox;
 };
 
 export const getLastPageDimensions = (pdfDoc: PDF): { width: number; height: number } => {

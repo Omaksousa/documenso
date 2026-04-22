@@ -235,7 +235,6 @@ Processes async jobs.
 | Provider | Description           | Env Value         |
 | -------- | --------------------- | ----------------- |
 | Local    | Database-backed queue | `local` (default) |
-| BullMQ   | Redis-backed queue    | `bullmq`          |
 | Inngest  | Managed cloud service | `inngest`         |
 
 **Config**: `NEXT_PRIVATE_JOBS_PROVIDER`

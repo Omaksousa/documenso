@@ -99,7 +99,6 @@ app.route('/api/ai', aiRoute);
 // API servers.
 app.route('/api/v1', tsRestHonoApp);
 app.use('/api/jobs/*', jobsClient.getApiHandler());
-
 app.use('/api/trpc/*', trpcRateLimitMiddleware);
 app.use('/api/trpc/*', reactRouterTrpcServer);
 

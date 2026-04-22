@@ -5,6 +5,7 @@ import { isBase64Image } from '@documenso/lib/constants/signatures';
 import { AppError, AppErrorCode } from '@documenso/lib/errors/app-error';
 import { validateFieldAuth } from '@documenso/lib/server-only/document/validate-field-auth';
 import { DOCUMENT_AUDIT_LOG_TYPE } from '@documenso/lib/types/document-audit-logs';
+import { ZEstampFieldMeta } from '@documenso/lib/types/field-meta';
 import { createDocumentAuditLogData } from '@documenso/lib/utils/document-audit-logs';
 import { extractFieldInsertionValues } from '@documenso/lib/utils/envelope-signing';
 import { prisma } from '@documenso/prisma';
@@ -62,6 +63,7 @@ export const signEnvelopeFieldRoute = procedure
           include: {
             recipients: true,
             documentMeta: true,
+            envelopeItems: true,
           },
         },
         recipient: true,
@@ -136,6 +138,19 @@ export const signEnvelopeFieldRoute = procedure
     // Early return for uninserting fields.
     if (!insertionValues.inserted) {
       return await prisma.$transaction(async (tx) => {
+        const estampResetData =
+          field.type === FieldType.ESTAMP
+            ? {
+                fieldMeta: {
+                  ...ZEstampFieldMeta.parse(field.fieldMeta),
+                  stampedAt: undefined,
+                  hijriStampedAt: undefined,
+                  envelopeExternalId: undefined,
+                  envelopeItems: undefined,
+                },
+              }
+            : {};
+
         const updatedField = await tx.field.update({
           where: {
             id: field.id,
@@ -143,6 +158,7 @@ export const signEnvelopeFieldRoute = procedure
           data: {
             customText: '',
             inserted: false,
+            ...estampResetData,
           },
         });
 
@@ -218,6 +234,57 @@ export const signEnvelopeFieldRoute = procedure
         },
       });
 
+      if (field.type === FieldType.ESTAMP) {
+        const parsedEstampMeta = ZEstampFieldMeta.parse(field.fieldMeta);
+
+        let signerStampedAt: string | undefined;
+        let signerHijriStampedAt: string | undefined;
+
+        if (insertionValues.customText) {
+          try {
+            const parsed: unknown = JSON.parse(insertionValues.customText);
+            if (parsed !== null && typeof parsed === 'object') {
+              if (
+                'stampedAt' in parsed &&
+                typeof parsed.stampedAt === 'string' &&
+                parsed.stampedAt
+              ) {
+                signerStampedAt = parsed.stampedAt;
+              }
+              if (
+                'hijriStampedAt' in parsed &&
+                typeof parsed.hijriStampedAt === 'string' &&
+                parsed.hijriStampedAt
+              ) {
+                signerHijriStampedAt = parsed.hijriStampedAt;
+              }
+            }
+          } catch {
+            // customText is a legacy plain string — no date to extract
+          }
+        }
+
+        const updatedEstampField = await tx.field.update({
+          where: {
+            id: field.id,
+          },
+          data: {
+            fieldMeta: {
+              ...parsedEstampMeta,
+              stampedAt: signerStampedAt ?? parsedEstampMeta.stampedAt,
+              hijriStampedAt: signerHijriStampedAt ?? parsedEstampMeta.hijriStampedAt,
+              envelopeExternalId: envelope.secondaryId || undefined,
+              envelopeItems: envelope.envelopeItems.length,
+            },
+          },
+          include: {
+            signature: true,
+          },
+        });
+
+        Object.assign(updatedField, updatedEstampField);
+      }
+
       if (field.type === FieldType.SIGNATURE) {
         const signature = await tx.signature.upsert({
           where: {
@@ -270,6 +337,7 @@ export const signEnvelopeFieldRoute = procedure
                 FieldType.NAME,
                 FieldType.TEXT,
                 FieldType.INITIALS,
+                FieldType.ESTAMP,
                 (type) => ({
                   type,
                   data: updatedField.customText,

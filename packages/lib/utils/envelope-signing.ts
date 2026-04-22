@@ -256,5 +256,20 @@ export const extractFieldInsertionValues = ({
         inserted: true,
       };
     })
+    .with({ type: FieldType.ESTAMP }, (fieldValue) => {
+      const { value } = fieldValue;
+
+      if (!value) {
+        return {
+          customText: '',
+          inserted: false,
+        };
+      }
+
+      return {
+        customText: value,
+        inserted: true,
+      };
+    })
     .exhaustive();
 };

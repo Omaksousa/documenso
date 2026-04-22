@@ -198,6 +198,12 @@ export const EnvelopeEditorPreviewPage = () => {
               customText: '',
             };
           })
+          .with({ type: FieldType.ESTAMP }, ({ fieldMeta }) => {
+            const text = fieldMeta?.initialValue;
+            return {
+              customText: text + '',
+            };
+          })
           .exhaustive(),
       };
     });
