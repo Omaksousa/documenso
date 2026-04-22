@@ -29,20 +29,23 @@ export const handleEstampFieldClick = async (
     };
   }
 
-  let textToInsert = text;
-
-  if (!textToInsert) {
-    textToInsert = await SignFieldEstampDialog.call({
-      fieldMeta: field.fieldMeta,
-    });
+  if (text) {
+    return {
+      type: FieldType.ESTAMP,
+      value: text,
+    };
   }
 
-  if (!textToInsert) {
+  const result = await SignFieldEstampDialog.call({
+    fieldMeta: field.fieldMeta,
+  });
+
+  if (!result) {
     return null;
   }
 
   return {
     type: FieldType.ESTAMP,
-    value: textToInsert,
+    value: JSON.stringify(result),
   };
 };

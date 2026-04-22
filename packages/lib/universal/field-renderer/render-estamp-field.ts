@@ -214,19 +214,50 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
 
   // ── DATA ROWS ─────────────────────────────────────────────────────────────
 
-  const dateValue = fieldMeta?.stampedAt
-    ? new Date(fieldMeta.stampedAt).toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      })
-    : '';
+  // customText may be a JSON-encoded signing value { from, stampedAt, hijriStampedAt }
+  // or a legacy plain string (from value only).
+  let signingFrom = '';
+  let signingStampedAt = '';
+  let signingHijriStampedAt = '';
+
+  if (field?.customText) {
+    try {
+      const parsed: unknown = JSON.parse(field.customText);
+      if (parsed !== null && typeof parsed === 'object') {
+        if ('from' in parsed && typeof parsed.from === 'string') signingFrom = parsed.from;
+        if ('stampedAt' in parsed && typeof parsed.stampedAt === 'string')
+          signingStampedAt = parsed.stampedAt;
+        if ('hijriStampedAt' in parsed && typeof parsed.hijriStampedAt === 'string')
+          signingHijriStampedAt = parsed.hijriStampedAt;
+      }
+    } catch {
+      signingFrom = field.customText;
+    }
+  }
+
+  const initialValueValue = signingFrom || fieldMeta?.initialValue || '';
+
+  const normalizeDate = (date: string): string => {
+    if (!date) return '';
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(date)) return date;
+    const d = new Date(date.length === 10 ? `${date}T12:00:00` : date);
+    if (isNaN(d.getTime())) return date;
+    return d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  };
+
+  const adDateFormatted = normalizeDate(signingStampedAt);
+  const hijriFormatted = signingHijriStampedAt;
+
+  const dateValue =
+    adDateFormatted && hijriFormatted
+      ? `${adDateFormatted} - ${hijriFormatted}`
+      : adDateFormatted || hijriFormatted;
 
   const externalId = fieldMeta?.envelopeExternalId || '';
-  const numberOfDocuments = fieldMeta?.envelopeItems ? `${fieldMeta?.envelopeItems}` : '';
+  const numberOfDocuments =
+    fieldMeta?.totalAttachments ?? (fieldMeta?.envelopeItems ? `${fieldMeta.envelopeItems}` : '');
 
-  // customText is the user signed value while receivedFrom is the initial value by the envelope creator
-  const receivedFromValue = field?.customText || fieldMeta?.receivedFrom || '';
+  const direction = fieldMeta?.direction ?? 'inbox';
 
   let rowY = HEADER_HEIGHT;
 
@@ -235,13 +266,13 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
       ? [
           { label: 'Number', value: externalId },
           { label: 'Date', value: dateValue },
-          { label: 'Received From', value: receivedFromValue },
+          { label: direction === 'inbox' ? 'Received From' : 'Send To', value: initialValueValue },
           { label: 'Attachments', value: numberOfDocuments },
         ]
       : [
           { label: 'رقم', value: externalId },
           { label: 'التاريخ', value: dateValue },
-          { label: 'وارد من', value: receivedFromValue },
+          { label: direction === 'inbox' ? 'وارد من' : 'صادر الى', value: initialValueValue },
           { label: 'المرفقات', value: numberOfDocuments },
         ];
 

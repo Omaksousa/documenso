@@ -138,6 +138,19 @@ export const signEnvelopeFieldRoute = procedure
     // Early return for uninserting fields.
     if (!insertionValues.inserted) {
       return await prisma.$transaction(async (tx) => {
+        const estampResetData =
+          field.type === FieldType.ESTAMP
+            ? {
+                fieldMeta: {
+                  ...ZEstampFieldMeta.parse(field.fieldMeta),
+                  stampedAt: undefined,
+                  hijriStampedAt: undefined,
+                  envelopeExternalId: undefined,
+                  envelopeItems: undefined,
+                },
+              }
+            : {};
+
         const updatedField = await tx.field.update({
           where: {
             id: field.id,
@@ -145,6 +158,7 @@ export const signEnvelopeFieldRoute = procedure
           data: {
             customText: '',
             inserted: false,
+            ...estampResetData,
           },
         });
 
@@ -223,6 +237,33 @@ export const signEnvelopeFieldRoute = procedure
       if (field.type === FieldType.ESTAMP) {
         const parsedEstampMeta = ZEstampFieldMeta.parse(field.fieldMeta);
 
+        let signerStampedAt: string | undefined;
+        let signerHijriStampedAt: string | undefined;
+
+        if (insertionValues.customText) {
+          try {
+            const parsed: unknown = JSON.parse(insertionValues.customText);
+            if (parsed !== null && typeof parsed === 'object') {
+              if (
+                'stampedAt' in parsed &&
+                typeof parsed.stampedAt === 'string' &&
+                parsed.stampedAt
+              ) {
+                signerStampedAt = parsed.stampedAt;
+              }
+              if (
+                'hijriStampedAt' in parsed &&
+                typeof parsed.hijriStampedAt === 'string' &&
+                parsed.hijriStampedAt
+              ) {
+                signerHijriStampedAt = parsed.hijriStampedAt;
+              }
+            }
+          } catch {
+            // customText is a legacy plain string — no date to extract
+          }
+        }
+
         const updatedEstampField = await tx.field.update({
           where: {
             id: field.id,
@@ -230,7 +271,8 @@ export const signEnvelopeFieldRoute = procedure
           data: {
             fieldMeta: {
               ...parsedEstampMeta,
-              stampedAt: new Date().toISOString(),
+              stampedAt: signerStampedAt ?? parsedEstampMeta.stampedAt,
+              hijriStampedAt: signerHijriStampedAt ?? parsedEstampMeta.hijriStampedAt,
               envelopeExternalId: envelope.secondaryId || undefined,
               envelopeItems: envelope.envelopeItems.length,
             },

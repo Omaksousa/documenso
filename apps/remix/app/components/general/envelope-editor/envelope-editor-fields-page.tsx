@@ -83,13 +83,57 @@ export const EnvelopeEditorFieldsPage = () => {
 
   const { envelope, editorFields, navigateToStep, editorConfig } = useCurrentEnvelopeEditor();
 
-  const { currentEnvelopeItem } = useCurrentEnvelopeRender();
+  const { currentEnvelopeItem, envelopeItems } = useCurrentEnvelopeRender();
 
   const { _ } = useLingui();
 
   const [isAiFieldDialogOpen, setIsAiFieldDialogOpen] = useState(false);
   const [isAiEnableDialogOpen, setIsAiEnableDialogOpen] = useState(false);
   const { revalidate } = useRevalidator();
+
+  const [totalPdfPageCount, setTotalPdfPageCount] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (envelopeItems.length === 0) return;
+
+    let cancelled = false;
+
+    const countAllPages = async () => {
+      const pdfjsLib = await import('pdfjs-dist');
+
+      let total = 0;
+
+      for (const item of envelopeItems) {
+        try {
+          let data: Uint8Array;
+
+          if (typeof item.data === 'string') {
+            const resp = await fetch(item.data);
+            data = new Uint8Array(await resp.arrayBuffer());
+          } else {
+            data = new Uint8Array(item.data);
+          }
+
+          const pdf = await pdfjsLib.getDocument({ data, cMapUrl: '/static/cmaps/' }).promise;
+          total += pdf.numPages;
+          await pdf.destroy();
+        } catch {
+          // skip items that fail to load
+        }
+      }
+
+      if (!cancelled) {
+        // substracting one from the total number so we dont include the cover page. Then converting to string
+        setTotalPdfPageCount(String(total - 1));
+      }
+    };
+
+    void countAllPages();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [envelopeItems]);
 
   const envelopeItemPermissions = useMemo(
     () => getEnvelopeItemPermissions(envelope, envelope.recipients),
@@ -455,6 +499,7 @@ export const EnvelopeEditorFieldsPage = () => {
                       <EditorFieldEstampForm
                         value={selectedField?.fieldMeta as TEstampFieldMeta | undefined}
                         onValueChange={(value) => updateSelectedFieldMeta(value)}
+                        pageCount={totalPdfPageCount}
                       />
                     ))
                     .otherwise(() => null)}

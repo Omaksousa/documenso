@@ -94,15 +94,15 @@ export const fieldButtonList = [
     id: 'estamp_arabic',
     type: FieldType.ESTAMP,
     icon: StampIcon,
-    name: msg`Stamp (Arabic)`,
-    initialFieldMeta: { type: 'estamp', lang: 'arabic', receivedFrom: '0' } as TFieldMetaSchema,
+    name: msg`AR Stamp`,
+    initialFieldMeta: { type: 'estamp', lang: 'arabic', initialValue: '0' } as TFieldMetaSchema,
   },
   {
     id: 'estamp_english',
     type: FieldType.ESTAMP,
     icon: StampIcon,
-    name: msg`Stamp (English)`,
-    initialFieldMeta: { type: 'estamp', lang: 'english', receivedFrom: '0' } as TFieldMetaSchema,
+    name: msg`EN Stamp`,
+    initialFieldMeta: { type: 'estamp', lang: 'english', initialValue: '0' } as TFieldMetaSchema,
   },
 ];
 

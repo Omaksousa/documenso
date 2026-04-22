@@ -199,7 +199,7 @@ export const EnvelopeEditorPreviewPage = () => {
             };
           })
           .with({ type: FieldType.ESTAMP }, ({ fieldMeta }) => {
-            const text = fieldMeta?.receivedFrom;
+            const text = fieldMeta?.initialValue;
             return {
               customText: text + '',
             };
