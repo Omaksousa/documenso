@@ -25,6 +25,7 @@ import { EnvelopeDownloadDialog } from '~/components/dialogs/envelope-download-d
 import { SignFieldCheckboxDialog } from '~/components/dialogs/sign-field-checkbox-dialog';
 import { SignFieldDropdownDialog } from '~/components/dialogs/sign-field-dropdown-dialog';
 import { SignFieldEmailDialog } from '~/components/dialogs/sign-field-email-dialog';
+import { SignFieldEstampDialog } from '~/components/dialogs/sign-field-estamp-dialog';
 import { SignFieldInitialsDialog } from '~/components/dialogs/sign-field-initials-dialog';
 import { SignFieldNameDialog } from '~/components/dialogs/sign-field-name-dialog';
 import { SignFieldNumberDialog } from '~/components/dialogs/sign-field-number-dialog';
@@ -85,6 +86,7 @@ export const DocumentSigningPageViewV2 = () => {
     <div className="min-h-screen w-screen bg-gray-50 dark:bg-background">
       <SignFieldEmailDialog.Root />
       <SignFieldTextDialog.Root />
+      <SignFieldEstampDialog.Root />
       <SignFieldNumberDialog.Root />
       <SignFieldNameDialog.Root />
       <SignFieldInitialsDialog.Root />

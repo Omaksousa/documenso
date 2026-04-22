@@ -1,25 +1,10 @@
 import { useState } from 'react';
 
 import { Trans } from '@lingui/react/macro';
-import {
-  DocumentStatus,
-  EnvelopeType,
-  type Recipient,
-  type TemplateDirectLink,
-} from '@prisma/client';
-import {
-  Copy,
-  Edit,
-  FolderIcon,
-  MoreHorizontal,
-  Pencil,
-  Share2Icon,
-  Trash2,
-  Upload,
-} from 'lucide-react';
+import type { Recipient, TemplateDirectLink } from '@prisma/client';
+import { Copy, Edit, FolderIcon, MoreHorizontal, Share2Icon, Trash2, Upload } from 'lucide-react';
 import { Link } from 'react-router';
 
-import { trpc as trpcReact } from '@documenso/trpc/react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,11 +13,10 @@ import {
   DropdownMenuTrigger,
 } from '@documenso/ui/primitives/dropdown-menu';
 
-import { EnvelopeDeleteDialog } from '../dialogs/envelope-delete-dialog';
-import { EnvelopeDuplicateDialog } from '../dialogs/envelope-duplicate-dialog';
-import { EnvelopeRenameDialog } from '../dialogs/envelope-rename-dialog';
 import { TemplateBulkSendDialog } from '../dialogs/template-bulk-send-dialog';
+import { TemplateDeleteDialog } from '../dialogs/template-delete-dialog';
 import { TemplateDirectLinkDialog } from '../dialogs/template-direct-link-dialog';
+import { TemplateDuplicateDialog } from '../dialogs/template-duplicate-dialog';
 import { TemplateMoveToFolderDialog } from '../dialogs/template-move-to-folder-dialog';
 
 export type TemplatesTableActionDropdownProps = {
@@ -57,9 +41,8 @@ export const TemplatesTableActionDropdown = ({
   teamId,
   onDelete,
 }: TemplatesTableActionDropdownProps) => {
-  const trpcUtils = trpcReact.useUtils();
-
-  const [isRenameDialogOpen, setRenameDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isDuplicateDialogOpen, setDuplicateDialogOpen] = useState(false);
   const [isMoveToFolderDialogOpen, setMoveToFolderDialogOpen] = useState(false);
 
   const isTeamTemplate = row.teamId === teamId;
@@ -83,27 +66,10 @@ export const TemplatesTableActionDropdown = ({
           </Link>
         </DropdownMenuItem>
 
-        {canMutate && (
-          <DropdownMenuItem onClick={() => setRenameDialogOpen(true)}>
-            <Pencil className="mr-2 h-4 w-4" />
-            <Trans>Rename</Trans>
-          </DropdownMenuItem>
-        )}
-
-        {canMutate && (
-          <EnvelopeDuplicateDialog
-            envelopeId={row.envelopeId}
-            envelopeType={EnvelopeType.TEMPLATE}
-            trigger={
-              <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
-                <div>
-                  <Copy className="mr-2 h-4 w-4" />
-                  <Trans>Duplicate</Trans>
-                </div>
-              </DropdownMenuItem>
-            }
-          />
-        )}
+        <DropdownMenuItem disabled={!canMutate} onClick={() => setDuplicateDialogOpen(true)}>
+          <Copy className="mr-2 h-4 w-4" />
+          <Trans>Duplicate</Trans>
+        </DropdownMenuItem>
 
         {canMutate && (
           <TemplateDirectLinkDialog
@@ -140,25 +106,24 @@ export const TemplatesTableActionDropdown = ({
           />
         )}
 
-        {canMutate && (
-          <EnvelopeDeleteDialog
-            id={row.envelopeId}
-            type={EnvelopeType.TEMPLATE}
-            status={DocumentStatus.DRAFT}
-            title={row.title}
-            canManageDocument={canMutate}
-            onDelete={onDelete}
-            trigger={
-              <DropdownMenuItem asChild onSelect={(e) => e.preventDefault()}>
-                <div>
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  <Trans>Delete</Trans>
-                </div>
-              </DropdownMenuItem>
-            }
-          />
-        )}
+        <DropdownMenuItem disabled={!canMutate} onClick={() => setDeleteDialogOpen(true)}>
+          <Trash2 className="mr-2 h-4 w-4" />
+          <Trans>Delete</Trans>
+        </DropdownMenuItem>
       </DropdownMenuContent>
+
+      <TemplateDuplicateDialog
+        id={row.id}
+        open={isDuplicateDialogOpen}
+        onOpenChange={setDuplicateDialogOpen}
+      />
+
+      <TemplateDeleteDialog
+        id={row.id}
+        open={isDeleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onDelete={onDelete}
+      />
 
       <TemplateMoveToFolderDialog
         templateId={row.id}
@@ -166,17 +131,6 @@ export const TemplatesTableActionDropdown = ({
         isOpen={isMoveToFolderDialogOpen}
         onOpenChange={setMoveToFolderDialogOpen}
         currentFolderId={row.folderId}
-      />
-
-      <EnvelopeRenameDialog
-        id={row.envelopeId}
-        initialTitle={row.title}
-        open={isRenameDialogOpen}
-        onOpenChange={setRenameDialogOpen}
-        envelopeType="template"
-        onSuccess={async () => {
-          await trpcUtils.template.findTemplates.invalidate();
-        }}
       />
     </DropdownMenu>
   );

@@ -10,10 +10,8 @@ import { Link } from 'react-router';
 import { match } from 'ts-pattern';
 import { z } from 'zod';
 
-import { useCurrentOrganisation } from '@documenso/lib/client-only/providers/organisation';
 import { TEAM_MEMBER_ROLE_HIERARCHY } from '@documenso/lib/constants/teams';
 import { TEAM_MEMBER_ROLE_MAP } from '@documenso/lib/constants/teams-translations';
-import { canExecuteOrganisationAction } from '@documenso/lib/utils/organisations';
 import { trpc } from '@documenso/trpc/react';
 import { Alert, AlertDescription } from '@documenso/ui/primitives/alert';
 import { Button } from '@documenso/ui/primitives/button';
@@ -75,13 +73,7 @@ export const TeamMemberCreateDialog = ({ trigger, ...props }: TeamMemberCreateDi
   const { toast } = useToast();
 
   const team = useCurrentTeam();
-  const organisation = useCurrentOrganisation();
   const utils = trpc.useUtils();
-
-  const canInviteOrganisationMembers = canExecuteOrganisationAction(
-    'MANAGE_ORGANISATION',
-    organisation.currentOrganisationRole,
-  );
 
   const form = useForm<TAddTeamMembersFormSchema>({
     resolver: zodResolver(ZAddTeamMembersFormSchema),
@@ -114,7 +106,7 @@ export const TeamMemberCreateDialog = ({ trigger, ...props }: TeamMemberCreateDi
 
   const onFormSubmit = async ({ members }: TAddTeamMembersFormSchema) => {
     if (members.length === 0) {
-      if (hasNoAvailableMembers && canInviteOrganisationMembers) {
+      if (hasNoAvailableMembers) {
         setInviteDialogOpen(true);
         return;
       }
@@ -239,7 +231,7 @@ export const TeamMemberCreateDialog = ({ trigger, ...props }: TeamMemberCreateDi
             onKeyDown={(e) => {
               if (e.key === 'Enter' && form.getValues('members').length === 0) {
                 e.preventDefault();
-                if (hasNoAvailableMembers && canInviteOrganisationMembers) {
+                if (hasNoAvailableMembers) {
                   setInviteDialogOpen(true);
                 }
                 // Don't show toast - the disabled Next button already communicates this
@@ -268,32 +260,21 @@ export const TeamMemberCreateDialog = ({ trigger, ...props }: TeamMemberCreateDi
                                 <Trans>No organisation members available</Trans>
                               </h3>
                               <p className="mb-6 max-w-sm text-sm text-muted-foreground">
-                                {canInviteOrganisationMembers ? (
-                                  <Trans>
-                                    To add members to this team, you must first add them to the
-                                    organisation.
-                                  </Trans>
-                                ) : (
-                                  <Trans>
-                                    To add members to this team, they must first be invited to the
-                                    organisation. Only organisation admins and managers can invite
-                                    new members — please contact one of them to invite members on
-                                    your behalf.
-                                  </Trans>
-                                )}
+                                <Trans>
+                                  To add members to this team, you must first add them to the
+                                  organisation.
+                                </Trans>
                               </p>
-                              {canInviteOrganisationMembers && (
-                                <OrganisationMemberInviteDialog
-                                  open={inviteDialogOpen}
-                                  onOpenChange={setInviteDialogOpen}
-                                  trigger={
-                                    <Button type="button" variant="default">
-                                      <UserPlusIcon className="mr-2 h-4 w-4" />
-                                      <Trans>Invite organisation members</Trans>
-                                    </Button>
-                                  }
-                                />
-                              )}
+                              <OrganisationMemberInviteDialog
+                                open={inviteDialogOpen}
+                                onOpenChange={setInviteDialogOpen}
+                                trigger={
+                                  <Button type="button" variant="default">
+                                    <UserPlusIcon className="mr-2 h-4 w-4" />
+                                    <Trans>Invite organisation members</Trans>
+                                  </Button>
+                                }
+                              />
                             </div>
                           ) : (
                             <MultiSelectCombobox
@@ -329,32 +310,30 @@ export const TeamMemberCreateDialog = ({ trigger, ...props }: TeamMemberCreateDi
                               <Trans>Select members to add to this team</Trans>
                             </FormDescription>
 
-                            {canInviteOrganisationMembers && (
-                              <Alert
-                                variant="neutral"
-                                className="mt-2 flex items-center gap-2 space-y-0"
-                              >
-                                <div>
-                                  <UserPlusIcon className="h-5 w-5 text-muted-foreground" />
-                                </div>
-                                <AlertDescription className="mt-0 flex-1">
-                                  <Trans>Can't find someone?</Trans>{' '}
-                                  <OrganisationMemberInviteDialog
-                                    open={inviteDialogOpen}
-                                    onOpenChange={setInviteDialogOpen}
-                                    trigger={
-                                      <Button
-                                        type="button"
-                                        variant="link"
-                                        className="h-auto p-0 text-sm font-medium text-documenso-700 hover:text-documenso-600"
-                                      >
-                                        <Trans>Invite them to the organisation first</Trans>
-                                      </Button>
-                                    }
-                                  />
-                                </AlertDescription>
-                              </Alert>
-                            )}
+                            <Alert
+                              variant="neutral"
+                              className="mt-2 flex items-center gap-2 space-y-0"
+                            >
+                              <div>
+                                <UserPlusIcon className="h-5 w-5 text-muted-foreground" />
+                              </div>
+                              <AlertDescription className="mt-0 flex-1">
+                                <Trans>Can't find someone?</Trans>{' '}
+                                <OrganisationMemberInviteDialog
+                                  open={inviteDialogOpen}
+                                  onOpenChange={setInviteDialogOpen}
+                                  trigger={
+                                    <Button
+                                      type="button"
+                                      variant="link"
+                                      className="h-auto p-0 text-sm font-medium text-documenso-700 hover:text-documenso-600"
+                                    >
+                                      <Trans>Invite them to the organisation first</Trans>
+                                    </Button>
+                                  }
+                                />
+                              </AlertDescription>
+                            </Alert>
                           </>
                         )}
                       </FormItem>

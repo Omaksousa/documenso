@@ -9,7 +9,6 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 import { useCopyShareLink } from '@documenso/lib/client-only/hooks/use-copy-share-link';
 import { NEXT_PUBLIC_WEBAPP_URL } from '@documenso/lib/constants/app';
-import { DO_NOT_INVALIDATE_QUERY_ON_MUTATION } from '@documenso/lib/constants/trpc';
 import { generateTwitterIntent } from '@documenso/lib/universal/generate-twitter-intent';
 import { trpc } from '@documenso/trpc/react';
 
@@ -61,9 +60,7 @@ export const DocumentShareButton = ({
     mutateAsync: createOrGetShareLink,
     data: shareLink,
     isPending: isCreatingOrGettingShareLink,
-  } = trpc.document.share.useMutation({
-    ...DO_NOT_INVALIDATE_QUERY_ON_MUTATION,
-  });
+  } = trpc.document.share.useMutation();
 
   const isLoading = isCreatingOrGettingShareLink || isCopyingShareLink;
 
@@ -141,7 +138,7 @@ export const DocumentShareButton = ({
 
       <DialogContent position="end">
         <DialogHeader>
-          <DialogTitle className="w-full max-w-full whitespace-pre-line break-words">
+          <DialogTitle>
             <Trans>Share your signing experience!</Trans>
           </DialogTitle>
 

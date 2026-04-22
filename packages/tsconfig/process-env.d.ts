@@ -78,16 +78,9 @@ declare namespace NodeJS {
 
     NEXT_PRIVATE_BROWSERLESS_URL?: string;
 
-    NEXT_PRIVATE_JOBS_PROVIDER?: 'inngest' | 'local' | 'bullmq';
+    NEXT_PRIVATE_JOBS_PROVIDER?: 'inngest' | 'local';
 
     NEXT_PUBLIC_USE_INTERNAL_URL_BROWSERLESS?: string;
-
-    /**
-     * Redis / BullMQ environment variables
-     */
-    NEXT_PRIVATE_REDIS_URL?: string;
-    NEXT_PRIVATE_REDIS_PREFIX?: string;
-    NEXT_PRIVATE_BULLMQ_CONCURRENCY?: string;
 
     /**
      * Inngest environment variables

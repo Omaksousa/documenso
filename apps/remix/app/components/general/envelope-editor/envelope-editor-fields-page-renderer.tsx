@@ -451,6 +451,23 @@ export const EnvelopeEditorFieldsPageRenderer = ({ pageData }: { pageData: PageR
     ) as Konva.Group[];
 
     interactiveTransformer.current?.nodes(fieldGroups);
+
+    // Disable resize anchors for estamp fields (they have a fixed static size).
+    const hasEstampField =
+      fieldGroups.length === 1 &&
+      editorFields.getFieldByFormId(fieldGroups[0].id())?.type === 'ESTAMP';
+    const defaultAnchors = [
+      'top-left',
+      'top-center',
+      'top-right',
+      'middle-right',
+      'middle-left',
+      'bottom-left',
+      'bottom-center',
+      'bottom-right',
+    ];
+    interactiveTransformer.current?.enabledAnchors(hasEstampField ? [] : defaultAnchors);
+
     setSelectedKonvaFieldGroups(fieldGroups);
 
     if (fieldGroups.length === 0 || fieldGroups.length > 1) {
