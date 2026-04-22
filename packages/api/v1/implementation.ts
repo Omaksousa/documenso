@@ -1424,7 +1424,7 @@ export const ApiContractV1Implementation = tsr.router(ApiContractV1, {
               .with('DROPDOWN', () => ZDropdownFieldMeta.safeParse(fieldMeta))
               .with('NUMBER', () => ZNumberFieldMeta.safeParse(fieldMeta))
               .with('TEXT', () => ZTextFieldMeta.safeParse(fieldMeta))
-              .with('SIGNATURE', 'INITIALS', 'DATE', 'EMAIL', 'NAME', () => ({
+              .with('SIGNATURE', 'INITIALS', 'DATE', 'EMAIL', 'NAME', 'ESTAMP', () => ({
                 success: true,
                 data: undefined,
               }))

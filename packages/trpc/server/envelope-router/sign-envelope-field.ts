@@ -271,8 +271,6 @@ export const signEnvelopeFieldRoute = procedure
           data: {
             fieldMeta: {
               ...parsedEstampMeta,
-              stampedAt: signerStampedAt ?? parsedEstampMeta.stampedAt,
-              hijriStampedAt: signerHijriStampedAt ?? parsedEstampMeta.hijriStampedAt,
               envelopeExternalId: envelope.secondaryId || undefined,
               envelopeItems: envelope.envelopeItems.length,
             },
