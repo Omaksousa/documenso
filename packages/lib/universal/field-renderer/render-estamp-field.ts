@@ -10,10 +10,10 @@ import {
 } from './field-generic-items';
 import type { FieldToRender, RenderFieldElementOptions } from './field-renderer';
 
-const STAMP_WIDTH = 210;
-const HEADER_HEIGHT = 38;
-const ROW_HEIGHT = 22;
-const BARCODE_ROW_HEIGHT = 24;
+const STAMP_WIDTH = 180;
+const HEADER_HEIGHT = 27;
+const ROW_HEIGHT = 15;
+const BARCODE_ROW_HEIGHT = 20;
 const NUM_ROWS = 4; // رقم, التاريخ, وارد من, المرفقات
 const STAMP_HEIGHT = HEADER_HEIGHT + ROW_HEIGHT * NUM_ROWS + BARCODE_ROW_HEIGHT;
 
@@ -21,7 +21,7 @@ const BORDER_COLOR = '#1B3A6B';
 const TEXT_COLOR = '#1B3A6B';
 const FONT_FAMILY = 'Arial, sans-serif';
 
-const LABEL_COL_WIDTH = 80;
+const LABEL_COL_WIDTH = 60;
 const VALUE_COL_WIDTH = STAMP_WIDTH - LABEL_COL_WIDTH;
 const INNER_PADDING = 4;
 
@@ -40,15 +40,6 @@ const addRow = (
   group.add(
     new Konva.Line({
       points: [dividerX, yOffset, dividerX, yOffset + ROW_HEIGHT],
-      stroke: BORDER_COLOR,
-      strokeWidth: 0.5,
-    }),
-  );
-
-  // Bottom border of row
-  group.add(
-    new Konva.Line({
-      points: [0, yOffset + ROW_HEIGHT, STAMP_WIDTH, yOffset + ROW_HEIGHT],
       stroke: BORDER_COLOR,
       strokeWidth: 0.5,
     }),
@@ -176,7 +167,7 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
     new Konva.Text({
       text: 'الشركة السعودية لشراكات المياه',
       x: STAMP_WIDTH / 2,
-      y: 5,
+      y: 2,
       width: STAMP_WIDTH / 2 - INNER_PADDING,
       height: 16,
       fontSize: 7,
@@ -191,9 +182,9 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
   estampGroup.add(
     new Konva.Text({
       text: 'Saudi Water Partnership Company',
-      x: STAMP_WIDTH / 2,
-      y: 22,
-      width: STAMP_WIDTH / 2 - INNER_PADDING,
+      x: 0,
+      y: 12,
+      width: STAMP_WIDTH - INNER_PADDING,
       height: 14,
       fontSize: 6,
       fontFamily: FONT_FAMILY,
@@ -282,6 +273,14 @@ const createFieldEstamp = (field: FieldToRender): Konva.Group => {
   }
 
   // ── BARCODE ROW ──────────────────────────────────────────────────────────
+  estampGroup.add(
+    new Konva.Line({
+      points: [0, rowY, STAMP_WIDTH, rowY],
+      stroke: BORDER_COLOR,
+      strokeWidth: 0.5,
+    }),
+  );
+
   if (externalId) {
     const barcodeCanvas = document.createElement('canvas');
     try {
