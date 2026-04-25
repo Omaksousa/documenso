@@ -6,6 +6,13 @@
  *  This file will be copied to the build folder during build time.
  *  Running this file will not work without a build.
  */
+
+/*
+ * INFO:
+ * This file not needed anymore since we have separate entry points for client and API servers,
+ * but we keep it for now to avoid breaking changes.
+ * We can remove it in the future once we are sure the new setup is stable.
+ */
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import handle from 'hono-react-router-adapter/node';
