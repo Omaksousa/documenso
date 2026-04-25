@@ -18,7 +18,7 @@ services:
   documenso:
     build:
       context: .
-      dockerfile: ./docker/production/Dockerfile
+      dockerfile: ../Dockerfile
     depends_on:
       database:
         condition: service_healthy
