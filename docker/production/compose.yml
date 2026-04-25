@@ -17,7 +17,7 @@ services:
 
   documenso:
     build:
-      context: .
+      context: ../..
       dockerfile: docker/Dockerfile
     depends_on:
       database:
